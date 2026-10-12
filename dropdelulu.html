@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0b1020">
+  <title>DropDeLuLu — Delulu Delivery</title>
+  <style>
+    :root {
+      --bg: #0b1020;
+      --panel: rgba(20, 29, 52, .88);
+      --cyan: #26f4e8;
+      --pink: #ff4fa3;
+      --text: #f4f7ff;
+      --muted: #aab6d3;
+      --line: rgba(255,255,255,.12);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--text);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(ellipse at 15% 0%, rgba(38,244,232,.16), transparent 35%),
+        radial-gradient(ellipse at 90% 25%, rgba(255,79,163,.13), transparent 32%),
+        var(--bg);
+    }
+    .wrap { width: min(100% - 32px, 960px); margin: 0 auto; }
+    header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 22px 0; gap: 12px;
+    }
+    .brand { display: flex; align-items: center; gap: 11px; font-weight: 850; letter-spacing: -.6px; }
+    .logo {
+      display: grid; place-items: center; width: 42px; height: 42px;
+      color: #07121b; background: var(--cyan); border-radius: 14px; font-size: 22px;
+      box-shadow: 0 0 28px rgba(38,244,232,.22);
+    }
+    .brand-name { font-size: 1.15rem; }
+    .pill {
+      border: 1px solid var(--line); color: var(--muted); border-radius: 999px;
+      padding: 8px 12px; font-size: .78rem; white-space: nowrap;
+    }
+    main { padding: 36px 0 60px; }
+    .hero { text-align: center; padding: 26px 0 34px; }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 8px; color: var(--cyan);
+      font-size: .78rem; font-weight: 800; letter-spacing: 1.7px; text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    h1 {
+      font-size: clamp(2.6rem, 9vw, 5.4rem); line-height: .98; letter-spacing: -3px;
+      margin: 0; font-weight: 900;
+    }
+    h1 span {
+      background: linear-gradient(100deg, var(--cyan), #8af8ff 45%, var(--pink));
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    .subtitle { max-width: 590px; margin: 20px auto 0; color: var(--muted); font-size: 1.06rem; line-height: 1.7; }
+    .actions { display: flex; justify-content: center; flex-wrap: wrap; gap: 12px; margin-top: 26px; }
+    button {
+      cursor: pointer; border: 0; border-radius: 13px; padding: 13px 19px;
+      font: inherit; font-weight: 800; transition: transform .15s ease, filter .15s ease;
+    }
+    button:hover { transform: translateY(-2px); filter: brightness(1.08); }
+    button:focus-visible { outline: 3px solid white; outline-offset: 3px; }
+    .primary { color: #07121b; background: var(--cyan); box-shadow: 0 8px 26px rgba(38,244,232,.15); }
+    .secondary { color: var(--text); background: rgba(255,255,255,.06); border: 1px solid var(--line); }
+    .notice {
+      display: flex; align-items: flex-start; gap: 12px; text-align: left;
+      max-width: 720px; margin: 0 auto 26px; padding: 15px 17px;
+      border: 1px solid rgba(255,207,102,.25); background: rgba(255,207,102,.07);
+      border-radius: 16px; color: #f8e8bd; line-height: 1.55; font-size: .9rem;
+    }
+    .notice strong { color: #ffda82; }
+    .notice-icon { font-size: 1.2rem; }
+    .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 24px; }
+    .card {
+      padding: 22px; background: var(--panel); border: 1px solid var(--line);
+      border-radius: 20px; min-height: 160px; box-shadow: 0 14px 40px rgba(0,0,0,.12);
+    }
+    .card-icon { font-size: 1.7rem; }
+    .card h2 { font-size: 1.05rem; margin: 13px 0 7px; }
+    .card p { color: var(--muted); font-size: .9rem; line-height: 1.6; margin: 0; }
+    .demo {
+      margin-top: 18px; padding: 22px; border: 1px solid var(--line);
+      background: rgba(13,20,38,.8); border-radius: 20px;
+    }
+    .demo-head { display: flex; justify-content: space-between; gap: 12px; align-items: center; flex-wrap: wrap; }
+    .demo h2 { margin: 0; font-size: 1.12rem; }
+    .status { color: var(--cyan); font-size: .82rem; font-weight: 800; }
+    .track {
+      height: 8px; background: rgba(255,255,255,.09); border-radius: 999px; overflow: hidden; margin: 20px 0 10px;
+    }
+    .track-fill { height: 100%; width: 0%; background: linear-gradient(90deg, var(--cyan), var(--pink)); border-radius: inherit; transition: width .55s ease; }
+    .steps { display: flex; justify-content: space-between; color: var(--muted); font-size: .75rem; gap: 6px; }
+    .demo-message { color: var(--muted); margin: 15px 0 0; line-height: 1.5; min-height: 24px; }
+    footer { text-align: center; color: #7f8ba9; font-size: .82rem; padding: 0 0 28px; }
+    @media (max-width: 680px) {
+      .cards { grid-template-columns: 1fr; }
+      .card { min-height: auto; }
+      main { padding-top: 18px; }
+      h1 { letter-spacing: -1.8px; }
+      .pill { font-size: .7rem; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { transition: none !important; scroll-behavior: auto !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <div class="logo" aria-hidden="true">📦</div>
+        <div class="brand-name">DropDeLuLu</div>
+      </div>
+      <div class="pill">✦ JUST FOR FUN</div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="eyebrow">✦ Welcome to your delulu era</div>
+        <h1>Dream it.<br><span>Drop it.</span></h1>
+        <p class="subtitle">
+          Welcome to DropDeLuLu — where your imaginary packages get the VIP treatment.
+          Ready to be delulu?
+        </p>
+        <div class="actions">
+          <button class="primary" id="trackBtn">Track my imaginary order ↗</button>
+          <button class="secondary" id="resetBtn">Reset demo</button>
+          <button class="secondary" id="soundBtn" type="button" aria-pressed="true">Sound: On</button>
+        </div>
+      </section>
+
+      <aside class="notice" role="note">
+        <span class="notice-icon" aria-hidden="true">⚠️</span>
+        <div><strong>Friendly reality check:</strong> DropDeLuLu is a fictional demo for entertainment only.
+          No real orders, deliveries, payments, or tracking are performed. Please don't enter personal or payment information.</div>
+      </aside>
+
+      <section class="cards" aria-label="Demo features">
+        <article class="card">
+          <div class="card-icon" aria-hidden="true">🚀</div>
+          <h2>Express delusion</h2>
+          <p>Your imaginary package is moving at the speed of your imagination.</p>
+        </article>
+        <article class="card">
+          <div class="card-icon" aria-hidden="true">✨</div>
+          <h2>Premium vibes</h2>
+          <p>Absolutely iconic updates for a package that exists only in this demo.</p>
+        </article>
+        <article class="card">
+          <div class="card-icon" aria-hidden="true">💌</div>
+          <h2>Zero real-world orders</h2>
+          <p>No checkout, no payments, and no personal details needed. Just jokes.</p>
+        </article>
+      </section>
+
+      <section class="demo" aria-labelledby="trackingTitle">
+        <div class="demo-head">
+          <h2 id="trackingTitle">Imaginary delivery tracker</h2>
+          <span class="status" id="status">WAITING FOR DELULU</span>
+        </div>
+        <div class="track" aria-hidden="true"><div class="track-fill" id="progress"></div></div>
+        <div class="steps" aria-hidden="true">
+          <span>Ordered-ish</span><span>In the clouds</span><span>Almost delulu</span><span>Delivered-ish</span>
+        </div>
+        <p class="demo-message" id="message" aria-live="polite">Your imaginary package is chilling in another dimension.</p>
+      </section>
+    </main>
+
+    <footer>DropDeLuLu © <span id="year"></span> · A fictional entertainment demo</footer>
+  </div>
+
+  <script>
+    const trackBtn = document.getElementById("trackBtn");
+    const resetBtn = document.getElementById("resetBtn");
+    const progress = document.getElementById("progress");
+    const status = document.getElementById("status");
+    const message = document.getElementById("message");
+    const year = document.getElementById("year");
+
+    const stages = [
+      { percent: 12, status: "ORDERED-ISH", message: "Your imaginary order has entered the delulu universe." },
+      { percent: 42, status: "IN THE CLOUDS", message: "Your package is floating through the clouds. Very premium. Very fictional." },
+      { percent: 76, status: "ALMOST DELULU", message: "The imaginary courier is doing a dramatic final lap." },
+      { percent: 100, status: "DELIVERED-ISH", message: "Success! Your imaginary package has arrived. Screenshot the vibes, not a real receipt." }
+    ];
+
+    let stageIndex = 0;
+    let running = false;
+    let soundEnabled = true;
+    let audioContext = null;
+    year.textContent = new Date().getFullYear();
+
+    // Lightweight synthesized sound effects; no external audio files needed.
+    function playTone(frequency, duration = 0.12, type = "sine", volume = 0.045, delay = 0) {
+      if (!soundEnabled) return;
+      try {
+        audioContext = audioContext || new (window.AudioContext || window.webkitAudioContext)();
+        if (audioContext.state === "suspended") audioContext.resume();
+        const start = audioContext.currentTime + delay;
+        const oscillator = audioContext.createOscillator();
+        const gain = audioContext.createGain();
+        oscillator.type = type;
+        oscillator.frequency.setValueAtTime(frequency, start);
+        gain.gain.setValueAtTime(0.0001, start);
+        gain.gain.exponentialRampToValueAtTime(volume, start + 0.015);
+        gain.gain.exponentialRampToValueAtTime(0.0001, start + duration);
+        oscillator.connect(gain);
+        gain.connect(audioContext.destination);
+        oscillator.start(start);
+        oscillator.stop(start + duration + 0.02);
+      } catch (error) {
+        // Sound is optional; the demo should still work if audio is unavailable.
+      }
+    }
+
+    function playStageSound(index) {
+      if (index === stages.length - 1) {
+        playTone(523.25, 0.22, "sine", 0.05, 0);
+        playTone(659.25, 0.22, "sine", 0.05, 0.16);
+        playTone(783.99, 0.34, "sine", 0.05, 0.32);
+      } else {
+        playTone(420 + index * 110, 0.11, "triangle", 0.035);
+      }
+    }
+
+    document.getElementById("soundBtn").addEventListener("click", () => {
+      soundEnabled = !soundEnabled;
+      const soundBtn = document.getElementById("soundBtn");
+      soundBtn.textContent = soundEnabled ? "Sound: On" : "Sound: Off";
+      soundBtn.setAttribute("aria-pressed", String(soundEnabled));
+      if (soundEnabled) playTone(660, 0.12, "sine", 0.04);
+    });
+
+    trackBtn.addEventListener("click", () => {
+      if (running) return;
+      running = true;
+      playTone(330, 0.09, "square", 0.025);
+      trackBtn.disabled = true;
+      trackBtn.textContent = "Tracking the delulu…";
+      stageIndex = 0;
+
+      function nextStage() {
+        const stage = stages[stageIndex];
+        playStageSound(stageIndex);
+        progress.style.width = stage.percent + "%";
+        status.textContent = stage.status;
+        message.textContent = stage.message;
+        stageIndex++;
+
+        if (stageIndex < stages.length) {
+          window.setTimeout(nextStage, 850);
+        } else {
+          running = false;
+          trackBtn.disabled = false;
+          trackBtn.textContent = "Track again ↗";
+        }
+      }
+      nextStage();
+    });
+
+    resetBtn.addEventListener("click", () => {
+      if (running) return;
+      playTone(260, 0.1, "triangle", 0.03);
+      progress.style.width = "0%";
+      status.textContent = "WAITING FOR DELULU";
+      message.textContent = "Your imaginary package is chilling in another dimension.";
+      trackBtn.textContent = "Track my imaginary order ↗";
+    });
+  </script>
+</body>
+</html>
